@@ -3,6 +3,6 @@ from apps.users.handler import SmsHandler
 
 urlpattern = (
     url("/code", SmsHandler),
-    # url("/register", RegisterHandler),
+    url("/register", RegisterHandler),
     # url("/login", LoginHandler),
 )

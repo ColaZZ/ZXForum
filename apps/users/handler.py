@@ -5,7 +5,11 @@ from random import choice
 
 from apps.users.forms import SmsCodeForm
 from apps.utils.AsyncYunPian import AsyncYunPian
-from ZxForum.handler import RedisHandler
+from ZxForm.handler import RedisHandler
+
+
+class RegisterHandler(RedisHandler):
+
 
 
 class SmsHandler(RedisHandler):

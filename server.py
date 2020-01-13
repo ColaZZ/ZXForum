@@ -2,8 +2,8 @@ from tornado import web
 import tornado.ioloop
 from peewee_async import Manager
 
-from ZxForum.urls import urlpattern
-from ZxForum.settings import settings, database
+from ZxForm.urls import urlpattern
+from ZxForm.settings import settings, database
 
 if __name__ == "__main__":
 
