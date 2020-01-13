@@ -3,12 +3,51 @@ from functools import partial
 from random import choice
 
 
-from apps.users.forms import SmsCodeForm
+from apps.users.forms import SmsCodeForm, RegisterForm
 from apps.utils.AsyncYunPian import AsyncYunPian
 from ZxForm.handler import RedisHandler
+from apps.users.models import User
+
 
 
 class RegisterHandler(RedisHandler):
+    async def post(self, *args, **kwargs):
+        re_data = {}
+
+        param = self.request.body.decode("utf-8")
+        param = json.loads(param)
+        register_form = RegisterForm.from_json(param)
+        if register_form.validate():
+            mobile = register_form.mobile.data
+            code = register_form.mobile.data
+            password = register_form.password.data
+
+            # 验证码是否正确
+            redis_key = "{}_{}".format(mobile, code)
+            if not self.redis_conn.get(redis_key):
+                self.set_status(400)
+                re_data["code"] = "验证码错误或者失效"
+
+            else:
+                # 验证用户是否存在
+                try:
+                    existed_user = await self.application.objects.get(User, moblie=mobile)
+                    self.set_status(400)
+                    re_data["mobile"] = "用户已经存在"
+                except User.DoesNotExist as e:
+                    user = await self.application.objects.create(User, mobile=mobile, password=password)
+                    re_data["id"] = user.id
+        else:
+            self.set_status(400)
+            for field in register_form.errors:
+                re_data[field] = register_form[field][0]
+
+        await self.finish(re_data)
+
+
+
+
+
 
 
 
