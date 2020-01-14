@@ -51,7 +51,6 @@ class LoginHandler(RedisHandler):
             await self.finish(re_data)
 
 
-
 class RegisterHandler(RedisHandler):
     async def post(self, *args, **kwargs):
         re_data = {}

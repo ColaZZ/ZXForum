@@ -7,10 +7,10 @@ settings = {
     "static_path": "C:/projects/tornado_overview/chapter03/static",
     "static_url_prefix": "/static/",
     "template_path": "templates",
-    "secret_key":"ZGGA#Mp4yL4w5CDu",
-    "jwt_expire":7*24*3600,
+    "secret_key": "ZGGA#Mp4yL4w5CDu",
+    "jwt_expire": 7*24*3600,
     "MEDIA_ROOT": os.path.join(BASE_DIR, "media"),
-    "SITE_URL":"http://127.0.0.1:8888",
+    "SITE_URL": "http://127.0.0.1:8888",
     "db": {
         "host": "127.0.0.1",
         "user": "root",
